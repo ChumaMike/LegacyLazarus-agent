@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "legacy_lazarus"
+version = "0.1.0"
+description = "AI-powered Legacy Code Refactoring Agent"
+requires-python = ">=3.10"
+dependencies = [
+    "click",
+    "pydantic>=2.0",
+    "ibm-granite-community", # Wrapper for Granite models
+    "mellea",                # Your generative library
+    "pytest"                 # For the self-healing loops
+]
+
+[project.scripts]
+lazarus = "legacy_lazarus.cli:cli" 
+# ^ This allows you to type 'lazarus' in your terminal later
