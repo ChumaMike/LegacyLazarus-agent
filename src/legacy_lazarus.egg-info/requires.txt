@@ -1,5 +1,5 @@
 click
 pydantic>=2.0
-ibm-granite-community
+ibm-watsonx-ai
 mellea
 pytest

@@ -10,9 +10,9 @@ requires-python = ">=3.10"
 dependencies = [
     "click",
     "pydantic>=2.0",
-    "ibm-granite-community", # Wrapper for Granite models
-    "mellea",                # Your generative library
-    "pytest"                 # For the self-healing loops
+    "ibm-watsonx-ai",  
+    "mellea",          
+    "pytest"
 ]
 
 [project.scripts]

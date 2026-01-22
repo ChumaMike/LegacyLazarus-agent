@@ -5,6 +5,6 @@ Summary: AI-powered Legacy Code Refactoring Agent
 Requires-Python: >=3.10
 Requires-Dist: click
 Requires-Dist: pydantic>=2.0
-Requires-Dist: ibm-granite-community
+Requires-Dist: ibm-watsonx-ai
 Requires-Dist: mellea
 Requires-Dist: pytest

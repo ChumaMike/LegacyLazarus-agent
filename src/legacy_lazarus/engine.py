@@ -3,6 +3,17 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 from mellea import generative, start_session
 
+# --- THE FIX: Authenticate with the real Watsonx Backend ---
+# Ensure you have these env vars set later: WATSONX_APIKEY, WATSONX_PROJECT_ID
+# For the hackathon demo, we will use the 'mock' backend if keys aren't present
+# to prevent crashing during the test phase.
+
+try:
+    start_session(backend="watsonx", model="ibm/granite-3-8b-instruct")
+except Exception:
+    print("⚠️ Watsonx credentials not found. Switching to MOCK backend for testing.")
+    start_session(backend="mock") 
+    
 # Initialize Session
 start_session(backend="watsonx", model="ibm/granite-3-8b-instruct")
 
