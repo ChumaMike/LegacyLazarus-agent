@@ -1,0 +1,2 @@
+[console_scripts]
+lazarus = legacy_lazarus.cli:cli
