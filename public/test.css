@@ -1,0 +1,8 @@
+/* IBM Carbon Dark Theme Override */
+.MuiPaper-root {
+    background-color: #161616 !important; /* IBM Gray 100 */
+    color: #f4f4f4 !important;
+}
+.MuiButton-containedPrimary {
+    background-color: #0f62fe !important; /* IBM Blue 60 */
+}
