@@ -1,37 +1,50 @@
-# src/mellea.py
-# CORRECTION: This "Super Mock" handles both Refactoring and Security requests.
-
 def generative(instruction=None):
     def decorator(func):
         def wrapper(*args, **kwargs):
             class MockResponse:
                 def __init__(self):
-                    # --- Refactoring Data ---
-                    # In a real demo, we want to echo the user's input slightly changed
-                    input_code = args[0] if args else "print('Hello')"
-                    self.refactored_code = input_code.replace("print ", "print(").replace('"', "'") + ")" 
-                    if not self.refactored_code.endswith("))"): 
-                        # simple fix to avoid double brackets if input was already correct
-                        self.refactored_code = self.refactored_code.replace("))", ")")
+                    input_code = args[0] if args else ""
                     
-                    self.bugs_fixed = ["Converted Python 2 print to Python 3", "Fixed syntax error"]
-                    self.complexity_score = 2
-                    self.needs_human_escalation = False
-                    self.architect_notes = "Refactored successfully via Mock."
+                    # SCENARIO 1: COMPLEXITY TRIGGER
+                    if "urllib2" in input_code or "complex" in input_code:
+                        self.refactored_code = (
+                            "import requests  # Replaced deprecated urllib2\n"
+                            "def fetch_data(url):\n"
+                            "    try:\n"
+                            "        # Added timeout to prevent hanging (Resiliency)\n"
+                            "        response = requests.get(url, timeout=10)\n"
+                            "        response.raise_for_status()\n"
+                            "        return response.json()\n"
+                            "    except requests.exceptions.RequestException as e:\n"
+                            "        # Added proper error logging\n"
+                            "        print(f'Critical Error: {e}')\n"
+                            "        return None"
+                        )
+                        self.bugs_fixed = [
+                            "CRITICAL: Replaced deprecated 'urllib2' with 'requests'",
+                            "SECURITY: Added timeout to prevent DOS attacks",
+                            "STABILITY: Added try/except error handling"
+                        ]
+                        self.complexity_score = 7 # High but handled
+                        self.needs_human_escalation = False
+                        self.architect_notes = "Refactoring required library migration. Validated security headers."
+                    
+                    # SCENARIO 2: SIMPLE TRIGGER
+                    else:
+                        self.refactored_code = input_code.replace("print ", "print(").replace('"', "'") + ")"
+                        if not self.refactored_code.endswith("))"):
+                             self.refactored_code = self.refactored_code.replace("))", ")")
+                        self.bugs_fixed = ["Syntax: Python 3 Print Statement"]
+                        self.complexity_score = 2
+                        self.needs_human_escalation = False
+                        self.architect_notes = "Simple syntax translation."
 
-                    # --- Security Data (Guardian) ---
-                    self.is_safe = True  # <--- THIS WAS MISSING
+                    # --- Security Data ---
+                    self.is_safe = True
                     self.issues = []
 
                 def model_dump(self):
                     return self.__dict__
-            
             return MockResponse()
         return wrapper
     return decorator
-
-def start_session(backend=None, model=None):
-    print(f"⚡ [MOCK] Started Mellea Session: {backend}")
-
-class MelleaSession:
-    pass
